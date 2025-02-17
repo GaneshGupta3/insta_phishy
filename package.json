@@ -3,5 +3,16 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.10.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "instagram-login-phishing-page",
+  "description": "This project is a simple implementation of an Instagram-like login form that connects to a MongoDB database. It uses Node.js, Express, and Mongoose for the backend, and basic HTML and CSS for the frontend.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
