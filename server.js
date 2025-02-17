@@ -1,3 +1,4 @@
+require("dotenv").config(); // Load environment variables
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -13,17 +14,17 @@ app.use(bodyParser.json());
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
-// Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/instagram", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// MongoDB Connection
+const mongoURI = process.env.MONGO_URI; // Get URI from .env
+if (!mongoURI) {
+  console.error("❌ MongoDB URI is missing in .env file");
+  process.exit(1); // Stop the server if no URI
+}
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Define User Schema
 const userSchema = new mongoose.Schema({
@@ -60,5 +61,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`🚀 Server is running on port ${port}`);
 });
